@@ -3,11 +3,13 @@ import "./Blog.scss";
 import React, { Component } from "react";
 
 import { postCardData } from "../../Shared/projectData";
-import { PostCard } from "./components/PostCard";
+import { PostCard } from "./components/PostCard/PostCard";
+import { AddPostForm } from "./components/AddPostForm/AddPostForm";
 
 export class Blog extends Component {
   state = {
-    blogArr: JSON.parse(localStorage.getItem("blogPosts")) || postCardData
+    blogArr: JSON.parse(localStorage.getItem("blogPosts")) || postCardData,
+    showAddForm: false,
   };
 
   likePost = pos => {
@@ -16,7 +18,7 @@ export class Blog extends Component {
     
     this.setState({
       blogArr: temp
-    })
+    })  
 
     localStorage.setItem("blogPosts", JSON.stringify(temp))
   }
@@ -34,6 +36,18 @@ export class Blog extends Component {
     }
   }
 
+  handleShowAddForm = () => {
+    this.setState({
+      showAddForm: true,
+    })
+  }
+
+  handleHideAddForm = () => {
+    this.setState({
+      showAddForm: false,
+    })
+  }
+
   render() {
     const blogPosts = this.state.blogArr.map((postCardItem, pos) => {
       return (
@@ -47,6 +61,19 @@ export class Blog extends Component {
     });
     return (
       <>
+        <div className="addPostBtn">
+          <button 
+            className="button"
+            onClick={this.handleShowAddForm}
+          >
+            Add post
+          </button>
+        </div>
+        {
+          this.state.showAddForm ? 
+          <AddPostForm handleHideAddForm={this.handleHideAddForm} /> 
+          : null
+        }
         {blogPosts}
       </>
     );

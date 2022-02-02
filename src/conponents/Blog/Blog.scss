@@ -71,3 +71,18 @@
 a.pagination__item:hover {
     color: $logo-bg;
 }
+
+.addPostBtn {
+    grid-column: span 2;
+}
+
+.button {
+    padding: 10px 20px;
+    border: 1px solid $grey;
+
+    text-transform: uppercase;
+
+    &:hover {
+        background-color: rgba(200, 200, 200, 0.5);
+    }
+}
