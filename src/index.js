@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './index.scss';
+import { App } from './App.js';
 import reportWebVitals from './reportWebVitals';
+document.title = "Fashion Blog";
 
 ReactDOM.render(
   <React.StrictMode>

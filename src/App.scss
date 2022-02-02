@@ -1,0 +1,49 @@
+button {
+  outline: unset;
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+}
+
+.App {
+  text-align: center;
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  &_big-screen {
+      max-width: 1760px;
+  }
+}
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: space-between;
+  column-gap: 30px;
+  row-gap: 30px;
+
+  padding: 60px 0;
+  
+  @media (min-width: 1024px) {
+      grid-template-columns: 2fr 270px;
+  }
+}
+
+.main {
+  display: grid;
+  // grid-template-columns: 1fr;
+  // grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  justify-items: center;
+  gap: 30px;
+
+  @media (min-width: 630px) {
+      grid-template-columns: repeat(2, minmax(280px, 360px));
+  }
+}

@@ -1,0 +1,73 @@
+@import "../colors.scss";
+
+.pagination {
+    // grid-column: span 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+
+    max-width: 509px;
+    width: 100%;
+    height: 50px;
+    margin-top: 30px;
+    padding: 0 39px;
+    
+    border: 1px solid $sidebar-border;
+
+    @media (min-width: 768px) {
+        grid-column: span 2;
+    }
+
+    &__item {
+        display: inline-block;
+
+        font-family: HKGrotesk;
+        font-size: 1.4rem;
+        line-height: 1.14;
+
+        &_prev {
+            position: relative;
+            opacity: 40%;
+
+            &::before {
+                content: "";
+                box-sizing: border-box;
+
+                position: absolute;
+                top: 9px;
+                left: -12px;
+                width: 7px;
+                height: 7px;
+                
+                border-bottom: 1px solid $secondary;
+                border-right: 1px solid $secondary;
+                transform: rotate(135deg);
+            }
+        }
+
+        &_next {
+            position: relative;
+
+            &::before {
+                content: "";
+                box-sizing: border-box;
+
+                position: absolute;
+                top: 9px;
+                right: -12px;
+                width: 7px;
+                height: 7px;
+                
+                border-bottom: 1px solid $secondary;
+                border-right: 1px solid $secondary;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}
+
+a.pagination__item:hover {
+    color: $logo-bg;
+}
