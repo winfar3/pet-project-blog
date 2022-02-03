@@ -1,6 +1,6 @@
 export const postCardData = [
     {
-      id: "01",
+      id: 1,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/01.png",
       isPositionTop: false,
@@ -13,7 +13,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "02",
+      id: 2,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/02.png",
       isPositionTop: false,
@@ -26,7 +26,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "03",
+      id: 3,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/03.png",
       isPositionTop: true,
@@ -39,7 +39,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "04",
+      id: 4,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/04.png",
       isPositionTop: false,
@@ -52,7 +52,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "05",
+      id: 5,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/05.png",
       isPositionTop: true,
@@ -65,7 +65,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "06",
+      id: 6,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/06.png",
       isPositionTop: false,
@@ -78,7 +78,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "07",
+      id: 7,
       cardSize: "big",
       imageUrl: "/img/blog/postcard/07.png",
       isPositionTop: true,
@@ -91,7 +91,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "08",
+      id: 8,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/08.png",
       isPositionTop: false,
@@ -104,7 +104,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "09",
+      id: 9,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/09.png",
       isPositionTop: true,
@@ -117,7 +117,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "10",
+      id: 10,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/10.png",
       isPositionTop: false,
@@ -130,7 +130,7 @@ export const postCardData = [
       liked: false,
     },
     {
-      id: "11",
+      id: 11,
       cardSize: "medium",
       imageUrl: "/img/blog/postcard/11.png",
       isPositionTop: false,

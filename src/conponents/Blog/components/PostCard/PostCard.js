@@ -7,7 +7,8 @@ export function PostCard(props) {
     const heartFill = props.liked ? "crimson" : "black";
 
     return (
-        <article className={"postcard postcard_" + props.cardSize} >
+        // <article className={props.id % 7 === 0 ? "postcard postcard_big" : "postcard postcard_medium"} >
+        <article className={"postcard postcard_medium"} >
             <div className="postcard__image">
                 <a href="#"><img src={props.imageUrl} className={props.isPositionTop ? "postcard__img postcard__img_top" : "postcard__img"} /></a>
             </div>
