@@ -1,11 +1,13 @@
 import { useThemeWithoutDefault } from "@mui/system";
 import React, { Component } from "react";
-import "./AddPostForm.scss";
+import "./EditPostForm.scss";
 
-export class AddPostForm extends Component {
+/** TODO refactor, use one form */
+
+export class EditPostForm extends Component {
     state = {
-        postTitle: '',
-        postDescription: '',
+        postTitle: this.props.selectedPost.title,
+        postDescription: this.props.selectedPost.description,
     }
 
     componentDidMount() {
@@ -30,33 +32,33 @@ export class AddPostForm extends Component {
 
     handleEnter = (e) => {
         if (e.key === "Enter") {
-            this.createPost(e);
+            this.savePost(e);
         }
     }
 
-    createPost = (e) => {
+    savePost = (e) => {
         e.preventDefault();
         const post = {
-          id: this.props.blogArr.length + 1,
+          id: this.props.selectedPost.id,
           title: this.state.postTitle,
           description: this.state.postDescription,
-          liked: false,
+          liked: this.props.selectedPost.liked,
         }
     
-        this.props.addNewBlogPost(post);
-        this.props.handleHideAddForm();
+        this.props.editBlogPost(post);
+        this.props.handleHideEditForm();
 
         console.log(post);
       }
 
     render() {
-        const handleHideAddForm = this.props.handleHideAddForm;
-        const createPost = this.createPost;
+        const handleHideEditForm = this.props.handleHideEditForm;
+        const savePost = this.savePost;
 
         return (
             <>
-                <form action="" className="addPostForm" onSubmit={createPost}>
-                    <h2 className="uppercase">Create new post</h2>
+                <form action="" className="editPostForm" onSubmit={this.savePost}>
+                    <h2 className="uppercase">Edit post</h2>
                     <div>
                         <input 
                             type="text" 
@@ -79,17 +81,17 @@ export class AddPostForm extends Component {
                             required
                         />
                     </div>
-                    <div className="addPostForm__buttons">
+                    <div className="editPostForm__buttons">
                         <button 
                             type="submitt" 
                             className="button"
                         >
-                            Add post
+                            Edit post
                         </button>
                         <button 
                             type="button" 
                             className="button"
-                            onClick={handleHideAddForm}
+                            onClick={handleHideEditForm}
                         >
                             Cancel
                         </button>
@@ -97,7 +99,7 @@ export class AddPostForm extends Component {
                 </form>
                 <div 
                     className="overlay"
-                    onClick={handleHideAddForm}
+                    onClick={handleHideEditForm}
                 ></div>
             </>
         );

@@ -1,4 +1,4 @@
-@import "../colors.scss";
+@import "../../conponents/colors.scss";
 
 .pagination {
     // grid-column: span 2;
@@ -76,13 +76,9 @@ a.pagination__item:hover {
     grid-column: span 2;
 }
 
-.button {
-    padding: 10px 20px;
-    border: 1px solid $grey;
-
-    text-transform: uppercase;
-
-    &:hover {
-        background-color: rgba(200, 200, 200, 0.5);
-    }
+.CircularProgress {
+    position: fixed;
+    top: 50%;
+    bottom: 50%;
+    transform: translateX(-50%, -50%);
 }

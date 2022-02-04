@@ -2,9 +2,15 @@ import "./PostCard.scss";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 export function PostCard(props) {
     const heartFill = props.liked ? "crimson" : "black";
+
+    const showEdotForm = () => {
+        props.handleSelectPost();
+        props.handleShowEditForm();
+    }
 
     return (
         // <article className={props.id % 7 === 0 ? "postcard postcard_big" : "postcard postcard_medium"} >
@@ -27,6 +33,12 @@ export function PostCard(props) {
                         style={{fill: heartFill}}
                     />
                     
+                </button>
+                <button
+                    // onClick={props.editPost}
+                    onClick={() => showEdotForm()}
+                >
+                    <EditIcon />
                 </button>
                 <button
                     onClick={props.deletePost}
