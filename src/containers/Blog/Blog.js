@@ -12,6 +12,8 @@ import { EditPostForm } from "./components/EditPostForm/EditPostForm";
 
 const serverUrl = "https://61fc04453f1e34001792c787.mockapi.io/posts/";
 
+let source;
+
 export class Blog extends Component {
   state = {
     blogArr: JSON.parse(localStorage.getItem("blogPosts")) || postCardData,
@@ -21,11 +23,17 @@ export class Blog extends Component {
     selectedPost: {},
   };
 
-  getPosts = () => {
-    // this.setState({
-    //   isPending: true,
-    // })
-    axios.get(serverUrl)
+  getPosts = (props) => {
+    if (!props) {
+      this.setState({
+        isPending: true,
+      })
+    }
+
+    source = axios.CancelToken.source();
+    let config = { cancelToken: source.token }
+
+    axios.get(serverUrl, config)
     .then((response) => {
       this.setState({
         blogArr: response.data,
@@ -85,11 +93,12 @@ export class Blog extends Component {
 
     const temp = {...postCardItem};
     temp.liked = !temp.liked;
+    let dontNeedReload = true;
 
     axios.put(`${serverUrl}${postCardItem.id}`, temp)
       .then((response) => {
         console.log(`Post changed ${response}`)
-        this.getPosts();
+        this.getPosts(dontNeedReload);
       })
       .catch((err) => {
         console.log(err);
@@ -199,6 +208,10 @@ export class Blog extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("keyup", this.handleEscape);
+    
+    if (source) {
+      source.cancel("Axios get canceled");
+    }
   }
 
   render() {
