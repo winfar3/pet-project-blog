@@ -1,12 +1,13 @@
 import "./App.scss";
 
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, unstable_HistoryRouter, useLocation, useNavigate, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes, unstable_HistoryRouter, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { Header } from "./conponents/Header/Header";
 import { Blog } from "./containers/Blog/Blog";
 import { LoginPage } from "./containers/LoginPage/LoginPage";
 import { Footer } from "./conponents/Footer/Footer";
+import { NotFoundPage } from "./containers/NotFoundPage/NotFoundPage";
 
 export function App() {
 
@@ -24,13 +25,21 @@ export function App() {
               <Routes>
                 <Route
                   // exact
-                  path="/"
-                  element={<Blog />}
+                  path="/blog"
+                  element={ isLoggedIn ? <Blog /> : <Navigate to="/login" /> }
                 />
                 <Route 
                   // exact
                   path="/login"
-                  element={<LoginPage setIsLoggedIn={setIsLoggedIn} setUserName={setUserName} />}
+                  element={isLoggedIn ? < Navigate to="/blog" /> : <LoginPage setIsLoggedIn={setIsLoggedIn} setUserName={setUserName} />}
+                />
+                <Route 
+                  path="/"
+                  element={ isLoggedIn ? <Navigate to="/blog" /> : <Navigate to="/login" /> }
+                />
+                <Route 
+                  path="*"
+                  element={ <NotFoundPage /> }
                 />
               </Routes>
             </main>

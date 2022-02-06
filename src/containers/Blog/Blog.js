@@ -1,7 +1,7 @@
 import "../../conponents/colors.scss";
 import "./Blog.scss";
 
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -14,20 +14,27 @@ const serverUrl = "https://61fc04453f1e34001792c787.mockapi.io/posts/";
 
 let source;
 
-export class Blog extends Component {
-  state = {
-    blogArr: JSON.parse(localStorage.getItem("blogPosts")) || postCardData,
-    showAddForm: false,
-    showEditForm: false,
-    isPending: false,
-    selectedPost: {},
-  };
+export const Blog = () => {
+  // state = {
+  //   blogArr: JSON.parse(localStorage.getItem("blogPosts")) || postCardData,
+  //   showAddForm: false,
+  //   showEditForm: false,
+  //   isPending: false,
+  //   selectedPost: {},
+  // };
 
-  getPosts = (props) => {
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [blogArr, setBlogArr] = useState([]);
+  const [isPending, setIsPending] = useState(false);
+  const [selectedPost, setSelectedPost] = useState({});
+
+  const getPosts = (props) => {
     if (!props) {
-      this.setState({
-        isPending: true,
-      })
+      // this.setState({
+      //   isPending: true,
+      // })
+      setIsPending(true);
     }
 
     source = axios.CancelToken.source();
@@ -35,17 +42,19 @@ export class Blog extends Component {
 
     axios.get(serverUrl, config)
     .then((response) => {
-      this.setState({
-        blogArr: response.data,
-        isPending: false,
-      })
+      // this.setState({
+      //   blogArr: response.data,
+      //   isPending: false,
+      // })
+      setBlogArr(response.data);
+      setIsPending(false);
     })
     .catch((err) => {
       console.log(err)
     })
   }
 
-  addNewBlogPost = (blogPost) => {
+  const addNewBlogPost = (blogPost) => {
     /** old code */
     // const temp = [...this.state.blogArr];
     // temp.push(blogPost);
@@ -54,14 +63,15 @@ export class Blog extends Component {
     //   blogArr: temp
     // });
 
-    this.setState({
-      isPending: true,
-    });
+    // this.setState({
+    //   isPending: true,
+    // });
+    setIsPending(true);
 
     axios.post(serverUrl, blogPost)
       .then((response) => {
         console.log(`Post added ${response.data}`);
-        this.getPosts();
+        getPosts();
       })
       .catch((err) => {
         console.log(err);
@@ -80,7 +90,7 @@ export class Blog extends Component {
 
   }
 
-  likePost = postCardItem => {
+  const likePost = (postCardItem) => {
     /** old code */
     // const temp = [...this.state.blogArr];
     // temp[pos].liked = !temp[pos].liked;
@@ -98,7 +108,7 @@ export class Blog extends Component {
     axios.put(`${serverUrl}${postCardItem.id}`, temp)
       .then((response) => {
         console.log(`Post changed ${response}`)
-        this.getPosts(dontNeedReload);
+        getPosts(dontNeedReload);
       })
       .catch((err) => {
         console.log(err);
@@ -116,32 +126,34 @@ export class Blog extends Component {
     // });
   }
 
-  editBlogPost = (editedPost) => {
-    this.setState({
-      isPending: true,
-    });
+  const editBlogPost = (editedPost) => {
+    // this.setState({
+    //   isPending: true,
+    // });
+    setIsPending(true);
 
     axios.put(`${serverUrl}${editedPost.id}`, editedPost)
       .then((response) => {
         console.log(`Post changed ${response}`)
-        this.getPosts();
+        getPosts();
       })
       .catch((err) => {
         console.log(err);
       })
   }
 
-  deletePost = (blogPost) => {
+  const deletePost = (blogPost) => {
     if (window.confirm(`Delete post ${blogPost.title}?`)) {
 
-      this.setState({
-        isPending: true,
-      });
+      // this.setState({
+      //   isPending: true,
+      // });
+      setIsPending(true);
       
       axios.delete(`${serverUrl}${blogPost.id}`)
         .then((response) => {
           console.log("Delete", response.data);
-          this.getPosts();
+          getPosts();
         })
         .catch((err) => {
           console.log(err);
@@ -159,87 +171,103 @@ export class Blog extends Component {
     }
   }
 
-  handleShowAddForm = () => {
-    this.setState({
-      showAddForm: true,
-    });
+  const handleShowAddForm = () => {
+    // this.setState({
+    //   showAddForm: true,
+    // });
+    setShowAddForm(true);
   }
 
-  handleHideAddForm = () => {
-    this.setState({
-      showAddForm: false,
-    });
+  const handleHideAddForm = () => {
+    // this.setState({
+    //   showAddForm: false,
+    // });
+    setShowAddForm(false);
   }
   
-  handleShowEditForm = () => {
-    this.setState({
-      showEditForm: true,
-    });
+  const handleShowEditForm = () => {
+    // this.setState({
+    //   showEditForm: true,
+    // });
+    setShowEditForm(true);
   }
 
-  handleHideEditForm = () => {
-    this.setState({
-      showEditForm: false,
-    });
+  const handleHideEditForm = () => {
+    // this.setState({
+    //   showEditForm: false,
+    // });
+    setShowEditForm(false);
   }
 
-  handleSelectPost = (blogPost) => {
-    this.setState({
-      selectedPost: blogPost,
-    });
+  const handleSelectPost = (blogPost) => {
+    // this.setState({
+    //   selectedPost: blogPost,
+    // });
+    setSelectedPost(blogPost);
   }
 
-  handleEscape = (e) => {
-    if (e.key === "Escape" && this.state.showAddForm) {
-      this.handleHideAddForm();
-    } else if (e.key === "Escape" && this.state.showEditForm) {
-      this.handleHideEditForm();
+  const handleEscape = (e) => {
+    if (e.key === "Escape" && setShowAddForm) {
+      handleHideAddForm();
+    } else if (e.key === "Escape" && setShowEditForm) {
+      handleHideEditForm();
     }
   }
 
-  componentDidMount() {
-    this.getPosts();
-    window.addEventListener("keyup", this.handleEscape);
-  }
+  // componentDidMount() {
+  //   this.getPosts();
+  //   window.addEventListener("keyup", this.handleEscape);
+  // }
 
-  componentDidUpdate() {
+  // componentDidUpdate() {
 
-  }
+  // }
 
-  componentWillUnmount() {
-    window.removeEventListener("keyup", this.handleEscape);
+  // componentWillUnmount() {
+  //   window.removeEventListener("keyup", this.handleEscape);
     
-    if (source) {
-      source.cancel("Axios get canceled");
-    }
-  }
+  //   if (source) {
+  //     source.cancel("Axios get canceled");
+  //   }
+  // }
+  useEffect(() => {
+    getPosts();
+    window.addEventListener("keyup", handleEscape);
 
-  render() {
-    const blogPosts = this.state.blogArr.map((postCardItem, pos) => {
+    return () => {
+      window.removeEventListener("keyup", handleEscape);
+      if (source) {
+        source.cancel("Axios get canceled");
+      }
+    };
+  }, []);
+
+    const blogPosts = blogArr.map((postCardItem) => {
       return (
         <PostCard
           key={postCardItem.id}
           {...postCardItem}
-          likePost={() => this.likePost(postCardItem)}
-          editPost={() => this.editPost(postCardItem)}
-          handleShowEditForm={() => this.handleShowEditForm()}
-          handleSelectPost={() => this.handleSelectPost(postCardItem)}
-          deletePost={() => this.deletePost(postCardItem)}
+          likePost={() => likePost(postCardItem)}
+          editPost={() => editBlogPost(postCardItem)}
+          handleShowEditForm={() => handleShowEditForm()}
+          handleSelectPost={() => handleSelectPost(postCardItem)}
+          deletePost={() => deletePost(postCardItem)}
         />
       );
     });
+
     return (
       <>
         <div className="addPostBtn">
           <button
             className="button"
-            onClick={this.handleShowAddForm}
+            onClick={handleShowAddForm}
           >
             Add post
           </button>
         </div>
         {
-          this.state.isPending && 
+          isPending && 
             <div className="overlay overlay_light">
               <CircularProgress 
                 style={{'color': '#171717'}}
@@ -248,23 +276,22 @@ export class Blog extends Component {
             </div>
         }
         {
-          this.state.showAddForm &&
+          showAddForm &&
             <AddPostForm
-              handleHideAddForm={this.handleHideAddForm}
-              blogArr={this.state.blogArr}
-              addNewBlogPost={this.addNewBlogPost}
+              handleHideAddForm={handleHideAddForm}
+              blogArr={setBlogArr}
+              addNewBlogPost={addNewBlogPost}
             />
         }
         {
-          this.state.showEditForm &&
+          showEditForm &&
             <EditPostForm 
-              handleHideEditForm={this.handleHideEditForm}
-              selectedPost={this.state.selectedPost}
-              editBlogPost={this.editBlogPost}
+              handleHideEditForm={handleHideEditForm}
+              selectedPost={selectedPost}
+              editBlogPost={editBlogPost}
             />
         }
         {blogPosts}
       </>
     );
-  }
 }
