@@ -21,29 +21,37 @@ export function HeaderNav(props) {
                 isLoggedIn={props.isLoggedIn} 
                 setIsLoggedIn={props.setIsLoggedIn} 
                 userName={props.userName}
+                setIsAdmin={props.setIsAdmin}
             />
         </>
     );
 }
 
-function Menu({active, setActive, isLoggedIn, setIsLoggedIn, userName}) {
+function Menu({active, setActive, isLoggedIn, setIsLoggedIn, userName, setIsAdmin}) {
     const navData = [
         {
             title: "Home",
             url: "/",
         }, 
         {
+            title: "About",
+            url: "asd",
+        },
+        {
             title: isLoggedIn ? "Log out" : "Log in",
             url: "/login",
-        }
+        },
     ]
     
     if (active ? document.body.style.overflow = "hidden" : document.body.style.overflow = "auto");
 
+    /** TODO: remove page reload on exit */
     const handleLogOut = () => {
         localStorage.setItem("isLoggedIn", false);
+        localStorage.setItem("isAdmin", false);
         localStorage.setItem("userName", "");
         setIsLoggedIn(false);
+        setIsAdmin(false);
         userName("");
     }
     

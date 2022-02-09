@@ -20,6 +20,12 @@ export function LoginPage(props) {
 
     const handleLogin = (e) => {
         e.preventDefault();
+        
+        if (login === "admin" && password === "123qwe") {
+            props.setIsAdmin(true);
+            localStorage.setItem("isAdmin", true);
+        }
+        
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("userName", login);
         props.setUserName(login);
