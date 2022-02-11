@@ -14,11 +14,13 @@ import {
 
 import { Header } from "./conponents/Header/Header";
 import { Blog } from "./containers/Blog/Blog";
+import { PostPage } from "./containers/Blog/components/PostPage/PostPage";
 import { LoginPage } from "./containers/LoginPage/LoginPage";
 import { PrivateRoute } from "./conponents/PrivateRoute/PrivateRoute";
 import { Footer } from "./conponents/Footer/Footer";
 import { NotFoundPage } from "./containers/NotFoundPage/NotFoundPage";
 import { PublicRoute } from "./conponents/PublicRoute/PublicRoute";
+import { PostCard } from "./containers/Blog/components/PostCard/PostCard";
 
 export function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
@@ -38,6 +40,16 @@ export function App() {
         <div className="content-wrapper">
           <main className="main">
             <Routes>
+              <Route 
+                path="/blog/:postId"
+                element={ 
+                  <PrivateRoute isLoggedIn={isLoggedIn}>
+                    <PostPage 
+                      isAdmin={isAdmin}
+                    />
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path="/blog"
                 element={

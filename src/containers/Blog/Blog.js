@@ -9,8 +9,7 @@ import { postCardData } from "../../Shared/projectData";
 import { PostCard } from "./components/PostCard/PostCard";
 import { AddPostForm } from "./components/AddPostForm/AddPostForm";
 import { EditPostForm } from "./components/EditPostForm/EditPostForm";
-
-const serverUrl = "https://61fc04453f1e34001792c787.mockapi.io/posts/";
+import { serverUrl } from "../../Shared/serverUrl";
 
 let source;
 
